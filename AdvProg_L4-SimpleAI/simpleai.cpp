@@ -216,8 +216,8 @@ vector<string> filterWordsByMask(const vector<string>& words, const string& mask
     vector<string> answer;
     //Write your code here
     for (auto i: words){
-        if (wordConformToMask(word[i],mask,ch)){
-            answer.push_back(word[i]);
+        if (wordConformToMask(words[i],mask,ch)){
+            answer.push_back(words[i]);
         }
     }
     return answer;
