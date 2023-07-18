@@ -85,7 +85,7 @@ char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& se
     char answer;
     //Write your code here
     int max =0;
-    for (int i='a',i<'z';++i){
+    for (int i='a';i<'z';++i){
         char p = i;
         bool notcheck = true;
         for (char c :selectedChars){
@@ -215,7 +215,7 @@ vector<string> filterWordsByMask(const vector<string>& words, const string& mask
 {
     vector<string> answer;
     //Write your code here
-    for (auto i:word){
+    for (auto i: words){
         if (wordConformToMask(i,mask,ch)){
             answer.push_back(i);
         }

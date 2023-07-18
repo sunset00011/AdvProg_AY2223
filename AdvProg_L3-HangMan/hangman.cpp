@@ -54,7 +54,7 @@ bool isCharInWord(const char ch, const string& word)
     
     bool check = false;
     int n = word.size();
-    for (int i=0;i<n;++i){
+    for (int i=0;i< n;++i){
         if (word[i] == ch){
             check = true;
         }
@@ -74,7 +74,7 @@ string chooseWordFromList(const vector<string>& wordList, int index)
     // TODO: Return a lowercase word in the index position of the vector wordList.
     string answer;
     answer = wordList[index];
-    for(int i=0; i<n; ++i){
+    for(int i=0; i<int(answer.size()); ++i){
         answer[i] = tolower(answer[i]);
     }
     return answer;
@@ -90,9 +90,9 @@ string generateHiddenCharacters(string answerWord){
     // TODO: Based on answerWord's length, generate hidden characters in form of "---"
     string secretWord;
     secretWord = answerWord;
-    int n = secretWord.length;
-    for (int i=0;i<n;++i){
-        secretWord[i] = "-";
+    int n = secretWord.length();
+    for (int i=0;i< n;++i){
+        secretWord[i] = '-';
     }
     return secretWord;
 }
@@ -172,10 +172,10 @@ void processData(const char ch, const string& word,
     ***/
    if (isCharInWord(ch,word)){
         updateSecretWord(secretWord,ch,word);
-        updateEnteredChars(ch,chars);
+        updateEnteredChars(ch,correctChars);
    }else{
         updateIncorrectGuess(incorrectGuess);
-        updateEnteredChars(ch,chars);
+        updateEnteredChars(ch,incorrectChars);
    }
 }
 
