@@ -62,7 +62,7 @@ void Game::snakeMoveTo(Position pos) {
 	}else if (squares[pos.x][pos.y] == CELL_SNAKE) {
 		status = GAME_OVER;	
 	}else{
-		if (getCellType(pos) == cherryPosition ){
+		if (getCellType(pos) == CELL_CHERRY ){
 			score++;
 			snake.eatCherry();
 			addCherry();
