@@ -28,6 +28,12 @@ vector<string> filterWordsByLen(int wordLen, const vector<string>& vocabulary)
 {
     vector<string> answer;
     //Write your code here
+    int n=vocabulary.size();
+    for(int i=0;i<n;i++)
+    {
+        int len=vocabulary[i].size();
+        if(len==wordLen) answer.push_back(vocabulary[i]);
+    }
     return answer;
 }
 
@@ -42,6 +48,15 @@ char nextCharWhenWordIsNotInDictionary(const set<char>& selectedChars)
 {
     char answer;
     //Write your code here
+    for(int i='a';i<='z';i++)
+    {
+        char ch=i;bool ok=false;
+        for(char c: selectedChars)
+        {
+            if(c!=ch) {answer = c;ok=true;break;}
+        }
+        if(ok) break;
+    }
     return answer;
 }
 
@@ -56,6 +71,20 @@ map<char, int> countOccurrences(const vector<string>& candidateWords)
 {
     map<char, int> answer;
     //Write your code here
+    int len=candidateWords.size();
+    for(int i='a';i<='z';i++)
+    {
+        char c=i;
+        answer[c]=0;
+    }
+    for(int i=0;i<len;i++)
+    {
+        int wordlen=candidateWords[i].length();
+        for(int j=0;j<wordlen;j++)
+        {
+            answer[candidateWords[i][j]]++;
+        }
+    }
     return answer;
 }
 
@@ -71,6 +100,22 @@ char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& se
 {
     char answer;
     //Write your code here
+    int max =0;
+    for (int i='a';i<'z';++i){
+        char p = i;
+        bool notcheck = true;
+        for (char c :selectedChars){
+            if (c == p){
+                notcheck = false;
+                break;
+
+            }if (notcheck){
+                int o1 = occurrences.at(p);
+                int o2 = occurrences.at(answer);
+                if (o1>o2) answer = p;
+            }
+        }
+    }
     return answer;
 }
 
@@ -86,6 +131,32 @@ char findBestChar(const vector<string>& candidateWords, const set<char>& selecte
 {
     char answer;
     //Write your code here
+    int len=candidateWords.size(),wordlen=candidateWords[0].length();
+    int ch[200]={0};
+    for(int i=0;i<len;i++)
+    {
+        for(int j=0;j<wordlen;j++)
+        {
+            ch[(int)candidateWords[i][j]]++;
+        }
+    }
+    for(int i='a';i<='z';i++)
+    {
+        char letter=i;
+        for(char c: selectedChars)
+        {
+            if(c==letter)
+            {
+                ch[i]=0;
+                break;
+            }
+        }
+    }
+    int ma=0;
+    for(int i='a';i<'z';i++)
+    {
+        if(ch[i]>ma) {ma=ch[i];answer=i;}
+    }
     return answer;
 }
 
@@ -108,8 +179,15 @@ string getWordMask(char nextChar)
 
 bool isCorrectChar(char ch, const string& mask)
 {
-    bool answer;
-    //Write your code here
+    bool answer = false;
+    int n = mask.length();
+     for(int i = 0; i< n ; i++)
+    {
+            if(mask[i] == ch) {
+                answer = true;
+                break;
+            }
+    }
     return answer;
 }
 
@@ -123,8 +201,16 @@ bool isCorrectChar(char ch, const string& mask)
 ***/
 bool isWholeWord(const string& mask)
 {
-     bool answer;
+     bool answer = true;
     //Write your code here
+    int n = mask.length();
+     for(int i = 0; i < n ; i++)
+     {
+        if ((mask[i] == '-')|| (mask[i] == '_')) {
+            answer = false;
+            break;
+        }
+     }
     return answer;
 }
 
@@ -142,8 +228,19 @@ bool isWholeWord(const string& mask)
 ***/
 bool wordConformToMask(const string& word, const string& mask, char ch) 
 {
-    bool answer;
+    bool answer=true;
     //Write your code here
+    int len=mask.length();
+    vector<int> thechars;
+    for(int i=0;i<len;i++)
+    {
+        if(mask[i]==ch) thechars.push_back(i);
+    }
+    int vsize=thechars.size();
+    for(int i=0;i<vsize;i++)
+    {
+        if(word[thechars[i]]!=ch) return false;
+    }
     return answer;
 }
 
@@ -163,5 +260,13 @@ vector<string> filterWordsByMask(const vector<string>& words, const string& mask
 {
     vector<string> answer;
     //Write your code here
+    int wordsize=words.size();
+    for(int i=0;i<wordsize;i++)
+    {
+        if(wordConformToMask(words[i],mask,ch))
+        {
+            answer.push_back(words[i]);
+        }
+    }
     return answer;
 }
